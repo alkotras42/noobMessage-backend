@@ -1,15 +1,13 @@
 const resolvers = {
-    Query: {
-        searchUsers: () => {
-
-        }
+  Query: {
+    searchUsers: () => {},
+  },
+  Mutation: {
+    createUsername: (_: any, args: {username: string}, context: any) => {
+      const {username} = args;
     },
-    Mutation: {
-        createUsername: () => {
+  },
+  // Subscription: {},
+};
 
-        }
-    },
-    // Subscription: {},
-}
-
-export default resolvers
+export default resolvers;

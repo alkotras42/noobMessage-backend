@@ -5,6 +5,7 @@ import express from 'express';
 import http from 'http';
 import typeDefs from './graphql/typeDefs';
 import resolvers from './graphql/resolvers';
+import {getSession} from 'next-auth/react';
 import * as dotenv from 'dotenv';
 
 async function main() {
@@ -16,13 +17,19 @@ async function main() {
 
   const corsOptions = {
     origin: process.env.CLIENT_ORIGIN,
-    credentials: true
+    credentials: true,
   };
 
   const server = new ApolloServer({
     schema,
     csrfPrevention: true,
     cache: 'bounded',
+    context: async ({req, res}) => {
+      const session = await getSession({req});
+      return {
+        session,
+      };
+    },
     plugins: [
       ApolloServerPluginDrainHttpServer({httpServer}),
       ApolloServerPluginLandingPageLocalDefault({embed: true}),
