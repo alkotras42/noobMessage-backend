@@ -1,7 +1,9 @@
 import {Session} from 'next-auth';
+import { PrismaClient } from '@prisma/client';
+
 
 export interface GraphQLContext {
   session: Session | null;
-//   prismaClient
-  //pubsub
+  prisma: PrismaClient;
+//   prismaClient//pubsub
 }
